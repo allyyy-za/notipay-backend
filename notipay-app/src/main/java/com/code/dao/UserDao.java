@@ -1,11 +1,13 @@
 package com.code.dao;
 
-//import java.util.List;
 import com.code.model.User;
 
 public interface UserDao {
+	public User getUserById(int userId);
+	public User getUserByUsername(String username);
 	public int saveUserRegistration(User user);
-	public String checkUserRegEmail(User user);
+	public String checkUserEmail(User user);
 	public User authenticateUser(String email);
-//	public List<User> listOfUsers();
+	public void deleteUserById(int userId);
+	public void updateUserById(User user, int userId);
 }

@@ -15,16 +15,25 @@ public class UserDaoImpl implements UserDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
+	public User getUserById(int userId) {
+		String sql = "SELECT * FROM user WHERE userId='" + userId + "'";
+		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(User.class));
+	}
+
+	
+	@Override
 	public int saveUserRegistration(User user) {
-		String sql = "INSERT INTO user(fullName, email, password) VALUES('"
+		String sql = "INSERT INTO user(fullName, email, username, password, roles) VALUES('"
 				+ user.getFullName() + "','"
 				+ user.getEmail() + "','"
-				+ user.getPassword() + "')";
+				+ user.getUsername() + "','"
+				+ user.getPassword() + "','"
+				+ user.getRoles() + "')";
 		return jdbcTemplate.update(sql);
 	}
 
 	@Override
-	public String checkUserRegEmail(User user) {
+	public String checkUserEmail(User user) {
 		String sql = "SELECT email FROM user WHERE email = ?";
 		try {
 			String email = user.getEmail();
@@ -41,11 +50,25 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT * FROM user WHERE email = '" + email + "'";
 		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(User.class));
 	}
-//
-//	@Override
-//	public List<User> listOfUsers() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
+	@Override
+	public void deleteUserById(int userId) {
+		String sql = "DELETE FROM user WHERE userId = '" + userId + "'";	
+		jdbcTemplate.update(sql);
+	}
+
+
+	@Override
+	public void updateUserById(User user, int userId) {
+		String sql = "UPDATE user SET fullname=?, email=?, password=? WHERE userId=?";
+		jdbcTemplate.update(sql, user.getFullName(), user.getEmail(), user.getPassword(), userId);
+	}
+
+	@Override
+	public User getUserByUsername(String username) {
+		String sql = "SELECT * FROM user where username= '" + username + "'";
+		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(User.class));
+	}
+
 
 }
