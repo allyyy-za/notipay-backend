@@ -73,7 +73,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<?> validateUser(String token, AccountDetails account) {
 		Boolean tokenValidation = jwtUtil.validateToken(token, account);
-		System.out.println(account.getUsername());
 		if(tokenValidation != true) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The token is not valid.");
 		}

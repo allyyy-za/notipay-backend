@@ -24,7 +24,7 @@ public class SubscriptionService {
 		subscription.setAmount(request.getAmount());
 		subscription.setRenewalDate(request.getRenewalDate());
 			
-		int result = subscriptionDao.save(userId, request);
+		int result = subscriptionDao.save(userId, subscription);
 		
 		if(result > 0) {
 			return ResponseEntity.ok().body("You have successfully added a subscription.");

@@ -40,7 +40,6 @@ public class MainController {
 	
 	@GetMapping("/auth/{token}")
 	public ResponseEntity<?> validateUser(@PathVariable String token, @AuthenticationPrincipal AccountDetails account) {
-		System.out.println(account.getUsername());
 		return userService.validateUser(token, account);
 	}
 	

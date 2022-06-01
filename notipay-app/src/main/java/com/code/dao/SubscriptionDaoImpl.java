@@ -7,6 +7,7 @@ import java.util.List;
 
 //import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 //import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -70,6 +71,12 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
 				+ subscription.getAmount() + "', renewalDate='" + subscription.getRenewalDate() + "' WHERE userId='" 
 				+ userId + "' AND subscriptionId='" + subscriptionId + "'";
 		return jdbcTemplate.update(sql);
+	}
+
+	@Override
+	public Subscription findById(int userId, int subscriptionId) {
+		String sql = "SELECT from subscription WHERE userId='" + userId + "' and subscriptionId '" + subscriptionId + "'";
+		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Subscription.class));
 	}
 
 }
