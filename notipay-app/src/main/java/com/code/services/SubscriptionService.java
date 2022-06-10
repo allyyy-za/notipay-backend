@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.code.dao.SubscriptionDao;
 import com.code.model.Subscription;
 
@@ -62,4 +61,15 @@ public class SubscriptionService {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is an error in editing the subscription.");
 		} 
 	}
+	
+	public ResponseEntity<?> viewSubscription(int userId, int subscriptionId) {
+		Subscription subscription = subscriptionDao.findById(userId, subscriptionId);
+		
+		if(subscription != null) {
+			return ResponseEntity.ok().body(subscription);
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is an error in viewing a subscription.");
+		}
+	}
+
 }

@@ -4,16 +4,12 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-//import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-//import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.code.model.Subscription;
-//import com.code.model.User;
 
 @Repository
 public class SubscriptionDaoImpl implements SubscriptionDao {
@@ -39,13 +35,6 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
 		}); 
 		return listOfSubscriptions;
 	}
-
-//	@Override
-//	public Subscription findById(User user, int id) {
-//		String sql = "SELECT * FROM subscription WHERE userId='" + user.getId() + "'AND subscriptionId='" + id + "'";
-//		
-//		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Subscription.class));
-//	}
 
 	@Override
 	public int deleteById(int userId, int subscriptionId) {
@@ -75,7 +64,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
 
 	@Override
 	public Subscription findById(int userId, int subscriptionId) {
-		String sql = "SELECT from subscription WHERE userId='" + userId + "' and subscriptionId '" + subscriptionId + "'";
+		String sql = "SELECT * from subscription WHERE userId='" + userId + "' and subscriptionId='" + subscriptionId + "'";
 		return jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Subscription.class));
 	}
 

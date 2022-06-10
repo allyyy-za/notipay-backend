@@ -53,40 +53,11 @@ public class SubscriptionController {
 		User user = userDao.getUserByUsername(account.getUsername());
 		return subscriptionService.editSubscription(user.getUserId(), subscription, Integer.parseInt(subscriptionId));
 	}
+	
+	@GetMapping("/subscriptionId={subscriptionId}")
+	public ResponseEntity<?> viewSubscription(@AuthenticationPrincipal AccountDetails account, @PathVariable String subscriptionId) {
+		User user = userDao.getUserByUsername(account.getUsername());
+		return subscriptionService.viewSubscription(user.getUserId(), Integer.parseInt(subscriptionId));
+	}
 
-//	@Autowired
-//	private Subscription subscription;
-//	
-//	@Autowired
-//	private SubscriptionDao subscriptionDao;
-//	
-//	@RequestMapping("/subscriptions/{userId}")
-//	public String subscriptionPage(Model model, @PathVariable int userId) {
-//		model.addAttribute("userId", userId);
-//		return "subscription";
-//	} 
-//	
-//	@PostMapping("/add-subscription/{userId}")
-//	private String addSubscription(Model model,
-//			@RequestParam("subscriptionName") String subscriptionName,
-//			@RequestParam("amount") float amount,
-//			@RequestParam("renewalDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate renewalDate,
-//			@PathVariable int userId) {
-//
-//		subscription = new Subscription();
-//		subscription.setSubscriptionName(subscriptionName);
-//		subscription.setAmount(amount);
-//		subscription.setRenewalDate(renewalDate);
-//
-//
-//		
-//		if(subscription==null) {
-//			model.addAttribute("error", "Empty fields.");
-//			return "subscription";
-//		} else {
-//			subscriptionDao.save(userId, subscription);
-//		}
-//		
-//		return "index";
-//	}
 }
