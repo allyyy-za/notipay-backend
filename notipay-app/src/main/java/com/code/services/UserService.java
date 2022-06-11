@@ -12,4 +12,7 @@ public interface UserService {
 	public ResponseEntity<?> registerUser(User user);
 	public ResponseEntity<?> authenticateUser(AuthCredentials request);
 	public ResponseEntity<?> validateUser(String token, AccountDetails account);
+	public ResponseEntity<?> getUserByUsername(AccountDetails account);
+	public ResponseEntity<?> editUser(AccountDetails account, User user);
+	public ResponseEntity<?> changePassword(AccountDetails account, User user);
 }

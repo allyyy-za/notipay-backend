@@ -80,4 +80,45 @@ public class UserServiceImpl implements UserService {
 		return ResponseEntity.ok(tokenValidation);
 	}
 
+	@Override
+	public ResponseEntity<?> getUserByUsername(AccountDetails account) {
+		User user = userDao.getUserByUsername(account.getUsername());
+		return ResponseEntity.ok().body(user);
+	}
+
+	@Override
+	public ResponseEntity<?> editUser(AccountDetails account, User user) {
+		User auth = userDao.getUserByUsername(account.getUsername());
+		User currentUser = new User();
+		currentUser.setFullName(user.getFullName());
+		currentUser.setEmail(user.getEmail());
+		currentUser.setUsername(user.getUsername());
+		
+		int result = userDao.updateUserById(currentUser, auth.getUserId());
+		
+		if(result > 0) {
+			return ResponseEntity.ok().body("You have successfully edited your details.");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is an error in editing a user.");
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> changePassword(AccountDetails account, User user) {
+		User auth = userDao.getUserByUsername(account.getUsername());
+		User currentUser = new User();
+		currentUser.setFullName(user.getFullName());
+		currentUser.setEmail(user.getEmail());
+		currentUser.setUsername(user.getUsername());
+		currentUser.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		int result = userDao.changePassword(currentUser, auth.getUserId());
+		
+		if(result > 0) {
+			return ResponseEntity.ok().body("You have successfully edited your details.");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is an error in editing a user.");
+		}
+	}
+
 }

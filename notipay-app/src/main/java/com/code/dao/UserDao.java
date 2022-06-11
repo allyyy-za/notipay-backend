@@ -9,5 +9,6 @@ public interface UserDao {
 	public String checkUserEmail(User user);
 	public User authenticateUser(String email);
 	public void deleteUserById(int userId);
-	public void updateUserById(User user, int userId);
+	public int updateUserById(User user, int userId);
+	public int changePassword(User user, int userId);
 }
