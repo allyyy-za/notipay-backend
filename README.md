@@ -1,13 +1,10 @@
 # Notipay
 
-
-NotiPay is a paid subscriptions and bills manager web application that allows users to log subscription and bill services and manage payments in one place.
-
-NotiPay is the easiest way to manage subscriptions and bills and helps you pay on time, and you will never be late on payment, again.
+NotiPay is a paid subscriptions and bills manager web application that allows users to log subscription and bill services with their information such as name, amount, and renewal/due date. This way, users will be able to pay on time since they will be able to see when a certain payment is due or when a certain subscription needs to be renewed. 
 
 ## ✅ Features
 
-- Log paid subscription and bill services with their details such as renewal and due date, amount, and etc.
+- Log paid subscription and bill services with their details such as renewal and due date, name, and amount.
 - Track your paid subscriptions and bills with their renewal and due dates.
 
 ## 💻 Tech Stack for the Backend
