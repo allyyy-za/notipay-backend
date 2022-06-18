@@ -30,12 +30,12 @@ public class MainController {
 	}
 	
 	@PostMapping("/auth/signup")
-	public ResponseEntity<?> registerUser(@RequestBody User user) {
+	public ResponseEntity<String> registerUser(@RequestBody User user) {
 		return userService.registerUser(user);
 	}
 	
 	@PostMapping("/auth/signin")
-	public ResponseEntity<?> authenticateUser(@RequestBody AuthCredentials request) {
+	public ResponseEntity<String> authenticateUser(@RequestBody AuthCredentials request) {
 		return userService.authenticateUser(request);
 	}
 	

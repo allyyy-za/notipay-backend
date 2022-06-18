@@ -9,8 +9,8 @@ import com.code.model.User;
 @Service
 public interface UserService {
 	
-	public ResponseEntity<?> registerUser(User user);
-	public ResponseEntity<?> authenticateUser(AuthCredentials request);
+	public ResponseEntity<String> registerUser(User user);
+	public ResponseEntity<String> authenticateUser(AuthCredentials request);
 	public ResponseEntity<?> validateUser(String token, AccountDetails account);
 	public ResponseEntity<?> getUserByUsername(AccountDetails account);
 	public ResponseEntity<?> editUser(AccountDetails account, User user);

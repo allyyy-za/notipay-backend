@@ -78,4 +78,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 
+	@Override
+	public String checkUsername(User user) {
+		String sql = "SELECT username FROM user WHERE username=?";
+		try {
+			String username = user.getUsername();
+			String checkUsername = jdbcTemplate.queryForObject(sql, String.class, username);
+			return checkUsername;
+			
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+
 }

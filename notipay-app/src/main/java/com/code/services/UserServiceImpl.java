@@ -29,13 +29,22 @@ public class UserServiceImpl implements UserService {
 		this.jwtUtil = jwtUtil;
 	}
 
-	public ResponseEntity<?> registerUser(User user) {
+	public ResponseEntity<String> registerUser(User user) {
 		String checkEmail = userDao.checkUserEmail(user);
+		String checkUsername = userDao.checkUsername(user);
 		
 		if(user.getEmail().equals(checkEmail)) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email has already an existing account.");
 		}
 		
+		if(user.getUsername() ==  null || user.getUsername() == "") {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username must not me empty.");
+		}
+		
+		if(user.getUsername().equals(checkUsername)) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already taken.");
+		}
+				
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRoles("USER");
 		
@@ -49,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<?> authenticateUser(AuthCredentials request) {
+	public ResponseEntity<String> authenticateUser(AuthCredentials request) {
 		try {
             Authentication authenticate = authenticationManager
                 .authenticate(
@@ -66,7 +75,7 @@ public class UserServiceImpl implements UserService {
                 )
                 .body("You have successfully logged in.");
         } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect credentials.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid login credentials.");
         }
 	}
 
