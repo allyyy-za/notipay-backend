@@ -65,3 +65,37 @@ NotiPay is a paid subscriptions and bills manager web application that allows us
 - **Creation of AccountDetailsService class**
     - This is the class that creates an account details with username as the parameter.
     - This class should implement UserDetailsService interface and implement the methods needed.
+
+## 🖱 Connecting Frontend to Backend
+
+- Since I have used Spring Boot as a REST API and React.js for frontend, there should be connection between them in such a way that frontend will communicate with backend.
+- The frontend will send HTTP request via the fetch API. In the fetch API, the link from the annotations in the backend will be called.
+- An example is to call the backend for login with an annotation of @PostMapping("/auth/signin”), has a fetch API as follows:
+```JavaScript
+fetch("api/auth/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    }).then((response) => {
+      if (response.status === 200) {
+        setAuth(response.headers.get("Authorization"));
+        if (auth) {
+          navigate("/home");
+          window.location.reload();
+        }
+      } else {
+        return response.text();
+      }
+    }).then((data) => { setError(data); });
+ ```
+- You can see here the link inside the @PostMapping annotation was called with other attributes such as method, headers, and body.
+- The response will come from the backend such that if the status is 200, this will mean that it is successful. Otherwise, it will result to an error.
+- Data is being communicated from two servers, frontend and backend, in JSON format via the body of the HTTP request.
+- In the backend, the Spring Boot application will the look for the annotation @RequestBody, that can be found in the parameter, as it will need to find the body of the request.
+```Java
+@PostMapping("/auth/signin")
+	public ResponseEntity<String> authenticateUser(@RequestBody AuthCredentials request) {
+		return userService.authenticateUser(request);
+	}
+```
+- This is the code for the backend. You can see the link in the annotation PostMapping and in the parameters, there is annotation RequestBody to look for the body of the HTTP request. 
